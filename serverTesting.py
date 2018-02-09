@@ -16,6 +16,7 @@ def newServer(port):
     while True:
         connect, address = serverSocket.accept()
         #1st message is going to be username
+        print "Incoming connection: {} : {}".format(address[0], address[1])
         data = ""
         while True:
             data = connect.recv(BUFFER_SIZE)
@@ -26,15 +27,15 @@ def newServer(port):
                 break
 
             print "FROM: " + data
-            message = raw_input("TO: ")
-            if "/quit" in message:
-                connect.send("Server is terminating connection")
-                print "ending connection"
-                connect.close()
-                break
-            connect.send(serverHandle + message)
+            # message = raw_input("TO: ")
+            # if "/quit" in message:
+            #     connect.send("Server is terminating connection")
+            #     print "ending connection"
+            #     connect.close()
+            #     break
+            connect.send(serverHandle + "RECEIVED")
 
     connect.shutdown(socket.SHUT_RDWR)
     connect.close()
 
-newServer(16002)
+newServer(16014)
